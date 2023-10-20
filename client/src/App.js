@@ -1,23 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import Recipes from './data/recipes.json'
+import RecordCard from "./components/RecordCard";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>CookBook</h1>
+        <p>Aplikace vytvořená v ReactJS</p>
+        <div className="Records">
+        {
+            Recipes.map(record => {
+                return (
+                    <RecordCard
+                        record={record}
+                    />
+                )
+            })
+        }
+        </div>
     </div>
   );
 }
