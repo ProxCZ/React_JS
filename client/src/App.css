@@ -4,17 +4,25 @@
 
 .card {
   margin: 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+
+.card-title {
+  height: 50px;
 }
 
 .card-text {
   text-align: left;
   font-size: 11px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 10;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .Records {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
 }
