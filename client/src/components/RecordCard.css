@@ -1,0 +1,17 @@
+.RecordCard {
+    margin: 10px;
+}
+
+.RecordCard .card-title {
+    height: 50px;
+}
+
+.RecordCard .card-text {
+    text-align: left;
+    font-size: 11px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 10;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

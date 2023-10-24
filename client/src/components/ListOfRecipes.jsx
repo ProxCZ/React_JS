@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Recipes from '../data/recipes.json'
 import RecordCard from "../components/RecordCard";
-import './buttons/ViewTypeButton.css'
 import ListOfRecipesNavbar from "./ListOfRecipesNavbar";
 import {LIST_OF_RECIPES_VIEW_TYPE} from "../helpers/const";
+import RecordLittleCard from "./RecordLittleCard";
+import RecordList from "./RecordList";
 
 function ListOfRecipes() {
 
@@ -15,21 +16,26 @@ function ListOfRecipes() {
         }
     }
 
+    function getRecords(selectedViewType) {
+        switch (selectedViewType) {
+            case LIST_OF_RECIPES_VIEW_TYPE.CARD:
+                return Recipes.map(record => {return (<RecordCard record={record}/>)});
+            case LIST_OF_RECIPES_VIEW_TYPE.LITTLE_CARD:
+                return Recipes.map(record => {return (<RecordLittleCard record={record}/>)});
+            case LIST_OF_RECIPES_VIEW_TYPE.LIST:
+                return <RecordList records={Recipes}/>;
+            default:
+                return null;
+        }
+    }
+
     return (
         <div>
             <ListOfRecipesNavbar
                 onClick={selectViewType}
             />
             <div className="Records">
-                {
-                    Recipes.map(record => {
-                        return (
-                            <RecordCard
-                                record={record}
-                            />
-                        )
-                    })
-                }
+                {getRecords(viewType)}
             </div>
         </div>
     );
