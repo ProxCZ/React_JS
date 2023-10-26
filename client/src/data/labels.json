@@ -1,5 +1,6 @@
 {
   "LIST_OF_RECIPES_NAVBAR_HEADER": "Recepty",
   "RECIPE_NAME": "Název receptu",
-  "RECIPE_DESCRIPTION": "Popis"
+  "RECIPE_DESCRIPTION": "Popis",
+  "SEARCH": "Vyhledej ..."
 }

@@ -4,8 +4,23 @@
     --bs-btn-border-color: none;
     --bs-btn-hover-color: none;
     --bs-btn-active-bg: #6e361e;
+    --bs-btn-hover-bg: none;
 }
 
 .btn {
     --bs-btn-border-radius: none;
+}
+
+.NavbarActions {
+    display: flex;
+}
+
+.Searching {
+    display: flex;
+    padding-right: 40px;
+}
+
+.Searching_icon:hover {
+    color: #6e361e;
+    transform: scale(1.2);
 }
