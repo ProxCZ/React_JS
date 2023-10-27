@@ -26,6 +26,8 @@ function App() {
             } else {
                 setLoadIngredients({ state: LOADING.SUCCESS, data: responseJson });
             }
+        }).catch((error) => {
+            setLoadIngredients({ state: LOADING.ERROR, data: "{txt}" });
         });
     }, []);
 
@@ -39,6 +41,8 @@ function App() {
             } else {
                 setLoadRecipes({ state: LOADING.SUCCESS, data: responseJson });
             }
+        }).catch((error) => {
+            setLoadIngredients({ state: LOADING.ERROR, data: "{txt}" });
         });
     }, []);
 
