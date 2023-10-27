@@ -12,6 +12,23 @@ function App() {
         state: LOADING.PENDING,
     });
 
+    const [loadIngredients, setLoadIngredients] = useState({
+        state: LOADING.PENDING,
+    });
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/ingredient/list`, {
+            method: "GET",
+        }).then(async (response) => {
+            const responseJson = await response.json();
+            if (response.status >= 400) {
+                setLoadIngredients({ state: LOADING.ERROR, error: responseJson });
+            } else {
+                setLoadIngredients({ state: LOADING.SUCCESS, data: responseJson });
+            }
+        });
+    }, []);
+
     useEffect(() => {
         fetch(`http://localhost:3000/recipe/list`, {
             method: "GET",
@@ -34,6 +51,7 @@ function App() {
               <ListOfRecipes
                   labels={Labels}
                   recipesList={loadRecipes.data}
+                  ingredientsList={loadIngredients.data && loadIngredients.data}
               />
           }
           <Loader

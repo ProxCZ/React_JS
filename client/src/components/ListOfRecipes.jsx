@@ -41,7 +41,7 @@ function ListOfRecipes(props) {
             case LIST_OF_RECIPES_VIEW_TYPE.CARD:
                 return filteredRecipesList.map(record => {return (<RecordCard record={record}/>)});
             case LIST_OF_RECIPES_VIEW_TYPE.LITTLE_CARD:
-                return filteredRecipesList.map(record => {return (<RecordLittleCard record={record}/>)});
+                return filteredRecipesList.map(record => {return (<RecordLittleCard record={record} ingredientsList={props.ingredientsList}/>)});
             case LIST_OF_RECIPES_VIEW_TYPE.LIST:
                 return <RecordList records={filteredRecipesList}/>;
             default:
