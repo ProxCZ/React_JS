@@ -2,8 +2,9 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ListOfRecipes from "./components/ListOfRecipes";
 import Labels from './data/labels.json'
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {LOADING} from "./helpers/const";
+import Loader from "./components/Loader";
 
 function App() {
 
@@ -29,9 +30,14 @@ function App() {
       <h1>CookBook</h1>
         <p>Aplikace vytvořená v ReactJS</p>
       <div className="body">
-          <ListOfRecipes
-              labels={Labels}
-              recipesList={loadRecipes}
+          { loadRecipes.state === LOADING.SUCCESS &&
+              <ListOfRecipes
+                  labels={Labels}
+                  recipesList={loadRecipes.data}
+              />
+          }
+          <Loader
+              load={loadRecipes}
           />
       </div>
     </div>

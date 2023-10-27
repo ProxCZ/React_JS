@@ -1,10 +1,9 @@
 import React, {useMemo, useState} from "react";
 import RecordCard from "../components/RecordCard";
 import ListOfRecipesNavbar from "./ListOfRecipesNavbar";
-import {LIST_OF_RECIPES_VIEW_TYPE, LOADING} from "../helpers/const";
+import {LIST_OF_RECIPES_VIEW_TYPE} from "../helpers/const";
 import RecordLittleCard from "./RecordLittleCard";
 import RecordList from "./RecordList";
-import Loader from "./Loader";
 
 function ListOfRecipes(props) {
 
@@ -12,9 +11,8 @@ function ListOfRecipes(props) {
     const [searchBy, setSearchBy] = useState("");
 
     const filteredRecipesList = useMemo(() => {
-        console.log(props.recipesList);
-        if (props.recipesList && props.recipesList.data) {
-            return props.recipesList.data.filter(item =>
+        if (props.recipesList) {
+            return props.recipesList.filter(item =>
                 item.name.toLocaleLowerCase().includes(searchBy.toLocaleLowerCase()) ||
                 item.description.toLocaleLowerCase().includes(searchBy.toLocaleLowerCase())
             );
@@ -53,21 +51,16 @@ function ListOfRecipes(props) {
 
     return (
         <div>
-            { props.recipesList.state === LOADING.SUCCESS &&
-                <div>
-                    <ListOfRecipesNavbar
-                        onSubmit={handleSearch}
-                        onChange={handleSearchOnChange}
-                        onClick={selectViewType}
-                    />
-                    <div className="Records">
-                        {filteredRecipesList !== null && getRecords(viewType)}
-                    </div>
+            <div>
+                <ListOfRecipesNavbar
+                    onSubmit={handleSearch}
+                    onChange={handleSearchOnChange}
+                    onClick={selectViewType}
+                />
+                <div className="Records">
+                    {filteredRecipesList !== null && getRecords(viewType)}
                 </div>
-            }
-            <Loader
-                load={props.recipesList}
-            />
+            </div>
         </div>
     );
 }
