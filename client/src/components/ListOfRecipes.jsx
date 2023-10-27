@@ -19,7 +19,7 @@ function ListOfRecipes(props) {
         } else {
             return null;
         }
-    }, [searchBy]);
+    }, [searchBy, props.recipesList]);
 
     function selectViewType(selectedViewType) {
         if (viewType !== selectedViewType) {
