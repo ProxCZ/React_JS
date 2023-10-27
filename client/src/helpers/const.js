@@ -13,3 +13,12 @@ export const LIST_OF_RECIPES_VIEW_TYPE = {
 export const ERRORS = {
     NO_LABEL: 'NO_LABEL'
 };
+
+/**
+ * Enum of Loading
+ */
+export const LOADING = {
+    PENDING: 'PENDING',
+    ERROR: 'ERROR',
+    SUCCESS: 'SUCCESS'
+};
