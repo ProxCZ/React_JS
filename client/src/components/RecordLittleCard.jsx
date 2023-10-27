@@ -16,7 +16,6 @@ function RecordLittleCard(props) {
                         {
                             props.record.ingredients.map((ingredient) => {
                                     const selectedIngredient = props.ingredientsList.find((ingredientInList)=>ingredientInList.id === ingredient.id);
-                                    console.log(selectedIngredient);
                                     return <li key={selectedIngredient.id}>{selectedIngredient.name}</li>;
                                 }
                             )
