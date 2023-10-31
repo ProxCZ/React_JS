@@ -11,7 +11,7 @@ function RecordLittleCard(props) {
             <Card.Body>
                 <Card.Title className="RecordLittleCard">{props.record.name}</Card.Title>
                 <Icon path={mdiBlur} size={1} />
-                <Card.Text className="RecordLittleCard">
+                <div className="card-text RecordLittleCard">
                     <ul>
                         {
                             props.record.ingredients.map((ingredient) => {
@@ -20,7 +20,8 @@ function RecordLittleCard(props) {
                                 }
                             )
                         }
-                    </ul></Card.Text>
+                    </ul>
+                </div>
             </Card.Body>
         </Card>
     );

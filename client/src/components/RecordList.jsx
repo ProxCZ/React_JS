@@ -13,7 +13,7 @@ function RecordList(props) {
             <tbody>
             {props.records.map((record) => {
                 return (
-                    <tr>
+                    <tr key={record.name}>
                         <td>{record.name}</td>
                         <td>{record.description}</td>
                     </tr>
