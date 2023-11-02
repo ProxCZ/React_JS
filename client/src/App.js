@@ -5,6 +5,7 @@ import Labels from './data/labels.json'
 import React, {useEffect, useState} from "react";
 import {LOADING} from "./helpers/const";
 import Loader from "./components/Loader";
+import {getLabel} from "./helpers/helper";
 
 function App() {
 
@@ -48,8 +49,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1>CookBook</h1>
-        <p>Aplikace vytvořená v ReactJS</p>
+      <h1>{getLabel("MAIN_TITLE")}</h1>
+        <p>{getLabel("SECOND_TITLE")}</p>
       <div className="body">
           { loadRecipes.state === LOADING.SUCCESS &&
               <ListOfRecipes

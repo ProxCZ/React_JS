@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  min-width: 1020px;
   max-width: 1445px;
   display: block;
   margin: auto;
@@ -11,12 +10,4 @@
   background-size: auto;
   background-repeat:no-repeat;
   background-position: bottom;
-}
-
-.Records {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 20px;
 }

@@ -4,6 +4,8 @@ import ListOfRecipesNavbar from "./ListOfRecipesNavbar";
 import {LIST_OF_RECIPES_VIEW_TYPE} from "../helpers/const";
 import RecordLittleCard from "./RecordLittleCard";
 import RecordList from "./RecordList";
+import "./ListOfRecipes.css";
+import {getLabel} from "../helpers/helper";
 
 function ListOfRecipes(props) {
 
@@ -45,7 +47,11 @@ function ListOfRecipes(props) {
             case LIST_OF_RECIPES_VIEW_TYPE.LIST:
                 return <RecordList records={filteredRecipesList}/>;
             default:
-                return null;
+                return (
+                    <div className="error">
+                        <div>{getLabel("LOADING_ERROR")}</div>
+                    </div>
+                );
         }
     }
 
@@ -57,7 +63,10 @@ function ListOfRecipes(props) {
                     onChange={handleSearchOnChange}
                     onClick={selectViewType}
                 />
-                <div className="Records">
+                <div className={"d-flex d-sm-none"}>
+                    {filteredRecipesList !== null && filteredRecipesList.map(record => {return (<RecordCard key={record.name} record={record}/>)})}
+                </div>
+                <div className={"d-none d-sm-flex"}>
                     {filteredRecipesList !== null && getRecords(viewType)}
                 </div>
             </div>

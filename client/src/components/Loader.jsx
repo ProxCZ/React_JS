@@ -2,6 +2,7 @@ import React from "react";
 import {LOADING} from "../helpers/const";
 import Icon from "@mdi/react";
 import {mdiLoading} from "@mdi/js";
+import {getLabel} from "../helpers/helper";
 
 function Loader(props) {
 
@@ -16,7 +17,7 @@ function Loader(props) {
             case LOADING.ERROR:
                 return (
                     <div className="error">
-                        <div>Nepodařilo se načíst data.</div>
+                        <div>{getLabel("LOADING_ERROR")}</div>
                         <br />
                         <pre>{JSON.stringify(props.load.error, null, 2)}</pre>
                     </div>

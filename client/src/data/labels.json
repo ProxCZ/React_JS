@@ -2,5 +2,8 @@
   "LIST_OF_RECIPES_NAVBAR_HEADER": "Recepty",
   "RECIPE_NAME": "Název receptu",
   "RECIPE_DESCRIPTION": "Popis",
-  "SEARCH": "Vyhledej ..."
+  "SEARCH": "Vyhledej ...",
+  "MAIN_TITLE": "CookBook",
+  "SECOND_TITLE": "Aplikace vytvořená v ReactJS",
+  "LOADING_ERROR": "Nepodařilo se načíst data."
 }

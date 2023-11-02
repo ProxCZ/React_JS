@@ -15,9 +15,11 @@ function ListOfRecipesNavbar(props) {
     return (
         <div>
             <div>
-                <Navbar bg="light">
+                <Navbar collapseOnSelect expand="sm" bg="light">
                     <div className="container-fluid">
                         <Navbar.Brand>{getLabel("LIST_OF_RECIPES_NAVBAR_HEADER")}</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                        <Navbar.Collapse style={{ justifyContent: "right" }}>
                         <div className="NavbarActions">
                             <Form
                                 className="Searching"
@@ -36,7 +38,7 @@ function ListOfRecipesNavbar(props) {
                                     <Icon className="Searching_icon" size={1} path={mdiMagnify} />
                                 </Button>
                             </Form>
-                            <ToggleButtonGroup type="radio" name="viewTypeOptions" defaultValue={LIST_OF_RECIPES_VIEW_TYPE.CARD}>
+                            <ToggleButtonGroup className={"d-none d-sm-flex"} type="radio" name="viewTypeOptions" defaultValue={LIST_OF_RECIPES_VIEW_TYPE.CARD}>
                                 <ToggleButton id={LIST_OF_RECIPES_VIEW_TYPE.CARD} value={LIST_OF_RECIPES_VIEW_TYPE.CARD} onClick={() => props.onClick(LIST_OF_RECIPES_VIEW_TYPE.CARD)}>
                                     <Icon size={1} path={mdiViewGrid} />
                                 </ToggleButton>
@@ -48,6 +50,7 @@ function ListOfRecipesNavbar(props) {
                                 </ToggleButton>
                             </ToggleButtonGroup>
                         </div>
+                        </Navbar.Collapse>
                     </div>
                 </Navbar>
             </div>
