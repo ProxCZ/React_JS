@@ -1,5 +1,7 @@
 {
-  "LIST_OF_RECIPES_NAVBAR_HEADER": "Recepty",
+  "TITLE_RECIPES": "Recepty",
+  "TITLE_HOME": "Domů",
+  "TITLE_INGREDIENTS": "Ingredience",
   "RECIPE_NAME": "Název receptu",
   "RECIPE_DESCRIPTION": "Popis",
   "SEARCH": "Vyhledej ...",

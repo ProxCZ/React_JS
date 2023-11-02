@@ -17,7 +17,7 @@ function ListOfRecipesNavbar(props) {
             <div>
                 <Navbar collapseOnSelect expand="sm" bg="light">
                     <div className="container-fluid">
-                        <Navbar.Brand>{getLabel("LIST_OF_RECIPES_NAVBAR_HEADER")}</Navbar.Brand>
+                        <Navbar.Brand>{getLabel("TITLE_RECIPES")}</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse style={{ justifyContent: "right" }}>
                         <div className="NavbarActions">
