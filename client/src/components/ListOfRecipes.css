@@ -4,3 +4,8 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+
+.PageBody {
+    display: flex;
+    flex-direction: column;
+}

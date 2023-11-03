@@ -9,7 +9,7 @@ const createRoutes = () => {
     return<BrowserRouter>
         <Routes>
             <Route path="/" element={<SharedLayout />} >
-                <Route index element={<Home />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/recipes" element={<Recipes />} />
                 <Route path="/ingredients" element={<Ingredients />} />
                 <Route path="*" element={<NoPageFound />} />

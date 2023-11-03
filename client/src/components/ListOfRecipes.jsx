@@ -6,11 +6,18 @@ import RecordLittleCard from "./RecordLittleCard";
 import RecordList from "./RecordList";
 import "./ListOfRecipes.css";
 import {getLabel} from "../helpers/helper";
+import Icon from "@mdi/react";
+import {mdiPlus} from "@mdi/js";
+import {Button} from "react-bootstrap";
+import AddRecipe from "./AddRecipe";
 
 function ListOfRecipes(props) {
 
     const [viewType, setViewType] = useState(LIST_OF_RECIPES_VIEW_TYPE.CARD);
     const [searchBy, setSearchBy] = useState("");
+    const [addRecipeShow, setAddRecipeShow] = useState(false);
+
+    const handleAddRecipeShow = () => setAddRecipeShow(true);
 
     const filteredRecipesList = useMemo(() => {
         if (props.recipesList) {
@@ -63,13 +70,32 @@ function ListOfRecipes(props) {
                     onChange={handleSearchOnChange}
                     onClick={selectViewType}
                 />
-                <div className={"d-flex d-sm-none"}>
-                    {filteredRecipesList !== null && filteredRecipesList.map(record => {return (<RecordCard key={record.name} record={record}/>)})}
-                </div>
-                <div className={"d-none d-sm-flex"}>
-                    {filteredRecipesList !== null && getRecords(viewType)}
+                <div className="PageBody">
+                    <div>
+                        <Button
+                            style={{ float: "right" }}
+                            variant="secondary"
+                            className="btn btn-success btn-sm"
+                            onClick={handleAddRecipeShow}
+                        >
+                            <Icon path={mdiPlus} size={1} />
+                            {getLabel("ADD_RECIPE")}
+                        </Button>
+                    </div>
+                    <div className={"d-flex d-sm-none"}>
+                        {filteredRecipesList !== null && filteredRecipesList.map(record => {return (<RecordCard key={record.name} record={record}/>)})}
+                    </div>
+                    <div className={"d-none d-sm-flex"}>
+                        {filteredRecipesList !== null && getRecords(viewType)}
+                    </div>
                 </div>
             </div>
+            {addRecipeShow &&
+                <AddRecipe
+                    setAddRecipeShow={setAddRecipeShow}
+                    ingredientsList={props.ingredientsList}
+                />
+            }
         </div>
     );
 }

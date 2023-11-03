@@ -7,5 +7,10 @@
   "SEARCH": "Vyhledej ...",
   "MAIN_TITLE": "CookBook",
   "SECOND_TITLE": "Aplikace vytvořená v ReactJS",
-  "LOADING_ERROR": "Nepodařilo se načíst data."
+  "LOADING_ERROR": "Nepodařilo se načíst data.",
+  "ADD_RECIPE": "Přidat recept",
+  "PLACEHOLDER_NAME": "Zadej název",
+  "PLACEHOLDER_DESCRIPTION": "Zadej popis",
+  "BUTTON_CLOSE": "Zavřít",
+  "BUTTON_ADD": "Přidat"
 }
