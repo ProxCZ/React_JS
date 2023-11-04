@@ -1,16 +1,19 @@
 {
+  "TITLE_COOKBOOK": "CookBook",
   "TITLE_RECIPES": "Recepty",
   "TITLE_HOME": "Domů",
   "TITLE_INGREDIENTS": "Ingredience",
+  "TITLE_UNIT": "Jednotka",
+  "TITLE_AMOUNT": "Množství",
   "RECIPE_NAME": "Název receptu",
   "RECIPE_DESCRIPTION": "Popis",
   "SEARCH": "Vyhledej ...",
-  "MAIN_TITLE": "CookBook",
-  "SECOND_TITLE": "Aplikace vytvořená v ReactJS",
+  "TITLE_FOOTER": "Aplikace vytvořená v ReactJS",
   "LOADING_ERROR": "Nepodařilo se načíst data.",
   "ADD_RECIPE": "Přidat recept",
   "PLACEHOLDER_NAME": "Zadej název",
   "PLACEHOLDER_DESCRIPTION": "Zadej popis",
+  "PLACEHOLDER_ADD_NEXT_INGREDIENT": "Přidej ingredienci",
   "BUTTON_CLOSE": "Zavřít",
   "BUTTON_ADD": "Přidat"
 }

@@ -18,13 +18,13 @@ function NavBar() {
             >
                 <Container fluid>
                     <Navbar.Brand onClick={() => navigate("/")}>
-                        {getLabel("MAIN_TITLE")}
+                        {getLabel("TITLE_COOKBOOK")}
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-sm`} />
                     <Navbar.Offcanvas id={`offcanvasNavbar-expand-sm`}>
                         <Offcanvas.Header closeButton>
                             <Offcanvas.Title id={`offcanvasNavbarLabel-expand-sm`}>
-                                {getLabel("MAIN_TITLE")}
+                                {getLabel("TITLE_COOKBOOK")}
                             </Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>

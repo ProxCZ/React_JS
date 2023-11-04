@@ -90,12 +90,11 @@ function ListOfRecipes(props) {
                     </div>
                 </div>
             </div>
-            {addRecipeShow &&
-                <AddRecipe
-                    setAddRecipeShow={setAddRecipeShow}
-                    ingredientsList={props.ingredientsList}
-                />
-            }
+            <AddRecipe
+                setAddRecipeShow={setAddRecipeShow}
+                ingredientsList={props.ingredientsList}
+                show={addRecipeShow}
+            />
         </div>
     );
 }

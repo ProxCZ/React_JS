@@ -1,7 +1,7 @@
 import {getLabel} from "../helpers/helper";
 
 function Footer() {
-    return <div>{getLabel("SECOND_TITLE")}</div>;
+    return <div>{getLabel("TITLE_FOOTER")}</div>;
 
 }
 
