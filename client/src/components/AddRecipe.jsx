@@ -1,9 +1,14 @@
 import {Modal, Form, Button, Row, Col} from "react-bootstrap";
 import {getLabel} from "../helpers/helper";
-import {useState} from "react";
+import React, {useState} from "react";
 import "./AddRecipe.css";
+import {mdiTrashCanOutline} from "@mdi/js";
+import { useMediaQuery } from 'react-responsive'
+import Icon from "@mdi/react";
 
 function AddRecipe(props) {
+
+    const [validated, setValidated] = useState(false);
 
     const [formData, setFormData] = useState({
         name: "",
@@ -11,12 +16,15 @@ function AddRecipe(props) {
         ingredients: [],
     });
 
+    const isSmallScreen = useMediaQuery({ query: '(max-width: 991px)' })
+
     const resetForm = () => {
         setFormData({
             name: "",
             description: "",
             ingredients: [],
-        })
+        });
+        setValidated(false);
     }
 
     const setField = (name, val) => {
@@ -75,7 +83,7 @@ function AddRecipe(props) {
     const handleDeleteIngredient = (id) => {
         return setFormData((formData) => {
             const newData = JSON.parse(JSON.stringify(formData));
-            const index = newData.ingredients.indexOf(id);
+            const index = newData.ingredients.findIndex((savedIngredient) => savedIngredient.id === id);
             if (index > -1) {
                 newData.ingredients.splice(index, 1);
             }
@@ -109,12 +117,17 @@ function AddRecipe(props) {
     }
 
     const handleSubmit = async (e) => {
+        const form = e.currentTarget;
         e.preventDefault();
         e.stopPropagation();
 
+        if (!form.checkValidity()) {
+            setValidated(true);
+            return;
+        }
+
         console.log(formData);
         handleClose();
-        resetForm();
     };
 
     const handleClose = () => {
@@ -125,116 +138,156 @@ function AddRecipe(props) {
     return (
         <>
             <Modal show={props.show} onHide={handleClose} className="modal-lg">
-                <Modal.Header closeButton>
-                    <Modal.Title>
-                        {getLabel("ADD_RECIPE")}
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form.Group className="mb-3">
-                        <Form.Label>{getLabel("RECIPE_NAME")}</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder={getLabel("PLACEHOLDER_NAME")}
-                            value={formData.name}
-                            onChange={(e) => setField("name", e.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>{getLabel("RECIPE_DESCRIPTION")}</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder={getLabel("PLACEHOLDER_DESCRIPTION")}
-                            value={formData.description}
-                            onChange={(e) => setField("description", e.target.value)}
-                        />
-                    </Form.Group>
-                    <Row>
-                        <Form.Group as={Col} className="col-7">
-                            <Form.Label>{getLabel("TITLE_INGREDIENTS")}</Form.Label>
+                <Form noValidate validated={validated} onSubmit={(e) => handleSubmit(e)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>
+                            {getLabel("ADD_RECIPE")}
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form.Group className="mb-3">
+                            <Form.Label>{getLabel("RECIPE_NAME")}</Form.Label>
+                            <Form.Control
+                                name="name"
+                                type="text"
+                                placeholder={getLabel("PLACEHOLDER_NAME")}
+                                value={formData.name}
+                                onChange={(e) => setField("name", e.target.value)}
+                                maxLength={50}
+                                required
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                {getLabel("ERROR_REQUIRED_NAME")}
+                            </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group as={Col} className="col">
-                            <Form.Label>{getLabel("TITLE_UNIT")}</Form.Label>
+                        <Form.Group className="mb-3">
+                            <Form.Label>{getLabel("RECIPE_DESCRIPTION")}</Form.Label>
+                            <Form.Control
+                                name="description"
+                                type="text"
+                                placeholder={getLabel("PLACEHOLDER_DESCRIPTION")}
+                                value={formData.description}
+                                onChange={(e) => setField("description", e.target.value)}
+                                maxLength={4000}
+                                required
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                {getLabel("ERROR_REQUIRED_DESCRIPTION")}
+                            </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group as={Col} className="col">
-                            <Form.Label>{getLabel("TITLE_AMOUNT")}</Form.Label>
-                        </Form.Group>
-                    </Row>
-                    {formData.ingredients.length !== 0 && formData.ingredients.map(ingredient =>
-                        <div
-                            key={ingredient.id}
-                            className="AddNextIngredient"
-                        >
+                        <div className="IngredientColumn">
                             <Row>
                                 <Form.Group as={Col} className="col-7">
+                                    <Form.Label>{getLabel("TITLE_INGREDIENTS")}</Form.Label>
+                                </Form.Group>
+                                <Form.Group as={Col} className="col LittleLabel">
+                                    <Form.Label className="d-none d-lg-flex">{getLabel("TITLE_UNIT")}</Form.Label>
+                                </Form.Group>
+                                <Form.Group as={Col} className="col LittleLabel">
+                                    <Form.Label className="d-none d-lg-flex">{getLabel("TITLE_AMOUNT")}</Form.Label>
+                                </Form.Group>
+                            </Row>
+                        </div>
+                        {formData.ingredients.length !== 0 && formData.ingredients.map(ingredient =>
+                            <div
+                                key={ingredient.id}
+                                className="IngredientRow"
+                            >
+                                <div className="IngredientColumn">
+                                    <Row>
+                                        <Form.Group as={Col} className="col-7 IngredientResponsibleColumn">
+                                            <Form.Select
+                                                value=""
+                                                onChange={(e) => handleChangeIngredient(ingredient.id, e.target.value)}
+                                            >
+                                                <option
+                                                    value=""
+                                                    disabled
+                                                >
+                                                    {getIngredientName(ingredient.id)}
+                                                </option>
+                                                {
+                                                    getIngredientsOptions()
+                                                }
+                                            </Form.Select>
+                                        </Form.Group>
+                                        <Form.Group as={Col} className="col IngredientResponsibleColumn">
+                                            <Form.Control
+                                                type="text"
+                                                placeholder={isSmallScreen ? getLabel("PLACEHOLDER_UNIT") : ""}
+                                                value={ingredient.unit}
+                                                onChange={(e) => setIngredientUnit(ingredient.id, e.target.value)}
+                                                maxLength={20}
+                                                required
+                                            />
+                                            <Form.Control.Feedback type="invalid">
+                                                <div className="d-none d-lg-flex ObjectCenter">
+                                                    {getLabel("ERROR_REQUIRED_UNIT")}
+                                                </div>
+                                            </Form.Control.Feedback>
+                                            {/*TODO change to select*/}
+                                        </Form.Group>
+                                        <Form.Group as={Col} className="col IngredientResponsibleColumn">
+                                            <Form.Control
+                                                type="number"
+                                                placeholder={isSmallScreen ? getLabel("PLACEHOLDER_AMOUNT") : ""}
+                                                value={ingredient.amount}
+                                                onChange={(e) => setIngredientAmount(ingredient.id, parseFloat(e.target.value))}
+                                                min="0.01"
+                                                step="0.01"
+                                                required
+                                            />
+                                            <Form.Control.Feedback type="invalid">
+                                                <div className="d-none d-lg-flex ObjectCenter">
+                                                    {getLabel("ERROR_REQUIRED_AMOUNT")}
+                                                </div>
+                                            </Form.Control.Feedback>
+                                        </Form.Group>
+                                    </Row>
+                                </div>
+                                <div className="EditColumn">
+                                    <Button
+                                        onClick={() => handleDeleteIngredient(ingredient.id)}
+                                    >
+                                        <Icon path={mdiTrashCanOutline } size={1} />
+                                    </Button>
+                                </div>
+                            </div>
+                            )
+                        }
+                        <div className="AddIngredientRow IngredientColumn">
+                            <Row>
+                                <Form.Group as={Col} className="col-7 IngredientResponsibleColumn">
                                     <Form.Select
                                         value=""
-                                        onChange={(e) => handleChangeIngredient(ingredient.id, e.target.value)}
+                                        onChange={(e) => setIngredient(e.target.value)}
                                     >
                                         <option
+                                            key="AddNextIngredient"
                                             value=""
                                             disabled
                                         >
-                                            {getIngredientName(ingredient.id)}
+                                            {getLabel("PLACEHOLDER_ADD_NEXT_INGREDIENT")}
                                         </option>
                                         {
                                             getIngredientsOptions()
                                         }
                                     </Form.Select>
                                 </Form.Group>
-                                <Form.Group as={Col} className="col">
-                                    <Form.Control
-                                        type="text"
-                                        placeholder=""
-                                        value={ingredient.unit}
-                                        onChange={(e) => setIngredientUnit(ingredient.id, e.target.value)}
-                                    />
-                                    {/*TODO change to select*/}
-                                </Form.Group>
-                                <Form.Group as={Col} className="col">
-                                    <Form.Control
-                                        type="number"
-                                        placeholder={""}
-                                        value={ingredient.amount}
-                                        onChange={(e) => setIngredientAmount(ingredient.id, parseFloat(e.target.value))}
-                                    />
-                                </Form.Group>
                             </Row>
                         </div>
-                        )
-                    }
-                    <div className="AddNextIngredient">
-                        <Row>
-                            <Form.Group as={Col} className="col-7">
-                                <Form.Select
-                                    value=""
-                                    onChange={(e) => setIngredient(e.target.value)}
-                                >
-                                    <option
-                                        key="AddNextIngredient"
-                                        value=""
-                                        disabled
-                                    >
-                                        {getLabel("PLACEHOLDER_ADD_NEXT_INGREDIENT")}
-                                    </option>
-                                    {
-                                        getIngredientsOptions()
-                                    }
-                                </Form.Select>
-                            </Form.Group>
-                        </Row>
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <div className="d-flex flex-row gap-2">
-                        <Button variant="secondary" onClick={handleClose}>
-                            {getLabel("BUTTON_CLOSE")}
-                        </Button>
-                        <Button variant="primary" type="submit" onClick={handleSubmit}>
-                            {getLabel("BUTTON_ADD")}
-                        </Button>
-                    </div>
-                </Modal.Footer>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <div className="d-flex flex-row gap-2">
+                            <Button variant="secondary" onClick={handleClose}>
+                                {getLabel("BUTTON_CLOSE")}
+                            </Button>
+                            <Button variant="primary" type="submit">
+                                {getLabel("BUTTON_ADD")}
+                            </Button>
+                        </div>
+                    </Modal.Footer>
+                </Form>
             </Modal>
         </>
     )

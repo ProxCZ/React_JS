@@ -1,3 +1,33 @@
-.AddNextIngredient {
+.IngredientRow {
     margin-top: 5px;
+    display: flex;
+}
+
+.LittleLabel {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.IngredientColumn {
+    width: 90%;
+}
+
+.EditColumn {
+    width: 10%;
+}
+
+.AddIngredientRow {
+    margin-top: 5px;
+}
+
+.ObjectCenter {
+    justify-content: center;
+}
+
+@media (max-width: 991px) {
+    .IngredientResponsibleColumn {
+        flex: auto;
+        margin-top: 2px;
+    }
 }

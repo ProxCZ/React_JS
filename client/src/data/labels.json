@@ -14,6 +14,12 @@
   "PLACEHOLDER_NAME": "Zadej název",
   "PLACEHOLDER_DESCRIPTION": "Zadej popis",
   "PLACEHOLDER_ADD_NEXT_INGREDIENT": "Přidej ingredienci",
+  "PLACEHOLDER_UNIT": "Zadej jednotky",
+  "PLACEHOLDER_AMOUNT": "Zadej množství",
   "BUTTON_CLOSE": "Zavřít",
-  "BUTTON_ADD": "Přidat"
+  "BUTTON_ADD": "Přidat",
+  "ERROR_REQUIRED_NAME": "Zadejte název receptu (max 50 znaků)",
+  "ERROR_REQUIRED_DESCRIPTION": "Zadejte popis receptu (max 4.000 znaků)",
+  "ERROR_REQUIRED_UNIT": "Zadejte jednotky",
+  "ERROR_REQUIRED_AMOUNT": "Zadejte množství"
 }
