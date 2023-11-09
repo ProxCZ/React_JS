@@ -16,19 +16,20 @@ function ListOfRecipes(props) {
     const [viewType, setViewType] = useState(LIST_OF_RECIPES_VIEW_TYPE.CARD);
     const [searchBy, setSearchBy] = useState("");
     const [addRecipeShow, setAddRecipeShow] = useState(false);
+    const [recipesData, setRecipesData] = useState(props.recipesList);
 
     const handleAddRecipeShow = () => setAddRecipeShow(true);
 
     const filteredRecipesList = useMemo(() => {
-        if (props.recipesList) {
-            return props.recipesList.filter(item =>
+        if (recipesData) {
+            return recipesData.filter(item =>
                 item.name.toLocaleLowerCase().includes(searchBy.toLocaleLowerCase()) ||
                 item.description.toLocaleLowerCase().includes(searchBy.toLocaleLowerCase())
             );
         } else {
             return null;
         }
-    }, [searchBy, props.recipesList]);
+    }, [searchBy, recipesData]);
 
     function selectViewType(selectedViewType) {
         if (viewType !== selectedViewType) {
@@ -60,6 +61,10 @@ function ListOfRecipes(props) {
                     </div>
                 );
         }
+    }
+
+    const handleRecipeAdded = (recipe) => {
+        setRecipesData([...recipesData, recipe]);
     }
 
     return (
@@ -94,6 +99,7 @@ function ListOfRecipes(props) {
                 setAddRecipeShow={setAddRecipeShow}
                 ingredientsList={props.ingredientsList}
                 show={addRecipeShow}
+                onComplete={(recipe) => handleRecipeAdded(recipe)}
             />
         </div>
     );

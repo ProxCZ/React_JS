@@ -2,13 +2,17 @@ import {Modal, Form, Button, Row, Col} from "react-bootstrap";
 import {getLabel} from "../helpers/helper";
 import React, {useState} from "react";
 import "./AddRecipe.css";
-import {mdiTrashCanOutline} from "@mdi/js";
+import {mdiLoading, mdiTrashCanOutline} from "@mdi/js";
 import { useMediaQuery } from 'react-responsive'
 import Icon from "@mdi/react";
+import {LOADING} from "../helpers/const";
 
 function AddRecipe(props) {
 
     const [validated, setValidated] = useState(false);
+    const [addRecipeCall, setAddRecipeCall] = useState({
+        state: LOADING.INACTIVE,
+    });
 
     const [formData, setFormData] = useState({
         name: "",
@@ -126,8 +130,30 @@ function AddRecipe(props) {
             return;
         }
 
-        console.log(formData);
-        handleClose();
+        const payload = {
+            ...formData
+        };
+
+        setAddRecipeCall({ state: LOADING.PENDING });
+        const res = await fetch(`http://localhost:3000/recipe/create`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (res.status >= 400) {
+            setAddRecipeCall({ state: LOADING.ERROR, error: data });
+        } else {
+            setAddRecipeCall({ state: LOADING.SUCCESS, data });
+            handleClose();
+            if (typeof props.onComplete === 'function') {
+                props.onComplete(data);
+            }
+        }
     };
 
     const handleClose = () => {
@@ -279,11 +305,20 @@ function AddRecipe(props) {
                     </Modal.Body>
                     <Modal.Footer>
                         <div className="d-flex flex-row gap-2">
+                            <div>
+                                { addRecipeCall.state === LOADING.ERROR &&
+                                    <div className="text-danger">{getLabel("LABEL_ERROR") + addRecipeCall.error.errorMessage}</div>
+                                }
+                            </div>
                             <Button variant="secondary" onClick={handleClose}>
                                 {getLabel("BUTTON_CLOSE")}
                             </Button>
                             <Button variant="primary" type="submit">
-                                {getLabel("BUTTON_ADD")}
+                                { addRecipeCall.state === LOADING.PENDING ? (
+                                        <Icon size={0.8} path={mdiLoading} spin={true} />
+                                    ) : (
+                                        getLabel("BUTTON_ADD")
+                                    )}
                             </Button>
                         </div>
                     </Modal.Footer>

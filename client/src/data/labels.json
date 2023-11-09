@@ -21,5 +21,6 @@
   "ERROR_REQUIRED_NAME": "Zadejte název receptu (max 50 znaků)",
   "ERROR_REQUIRED_DESCRIPTION": "Zadejte popis receptu (max 4.000 znaků)",
   "ERROR_REQUIRED_UNIT": "Zadejte jednotky",
-  "ERROR_REQUIRED_AMOUNT": "Zadejte množství"
+  "ERROR_REQUIRED_AMOUNT": "Zadejte množství",
+  "LABEL_ERROR": "Error: "
 }

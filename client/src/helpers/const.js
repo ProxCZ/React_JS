@@ -20,5 +20,6 @@ export const ERRORS = {
 export const LOADING = {
     PENDING: 'PENDING',
     ERROR: 'ERROR',
-    SUCCESS: 'SUCCESS'
+    SUCCESS: 'SUCCESS',
+    INACTIVE: 'INACTIVE'
 };
