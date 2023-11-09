@@ -1,6 +1,6 @@
 import {Modal, Form, Button, Row, Col} from "react-bootstrap";
 import {getLabel} from "../helpers/helper";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./AddRecipe.css";
 import {mdiLoading, mdiTrashCanOutline} from "@mdi/js";
 import { useMediaQuery } from 'react-responsive'
@@ -13,6 +13,22 @@ function AddRecipe(props) {
     const [addRecipeCall, setAddRecipeCall] = useState({
         state: LOADING.INACTIVE,
     });
+
+    useEffect(() => {
+        if (props.recipeData) {
+            setFormData({
+                name: props.recipeData.name,
+                description: props.recipeData.description,
+                ingredients: props.recipeData.ingredients,
+            });
+        } else {
+            setFormData({
+                name: "",
+                description: "",
+                ingredients: [],
+            });
+        }
+    }, [props.recipeData]);
 
     const [formData, setFormData] = useState({
         name: "",
@@ -131,11 +147,12 @@ function AddRecipe(props) {
         }
 
         const payload = {
-            ...formData
+            ...formData,
+            id: props.recipeData ? props.recipeData.id : null
         };
 
         setAddRecipeCall({ state: LOADING.PENDING });
-        const res = await fetch(`http://localhost:3000/recipe/create`, {
+        const res = await fetch(`http://localhost:3000/recipe/${props.recipeData ? 'update' : 'create'}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -157,7 +174,7 @@ function AddRecipe(props) {
     };
 
     const handleClose = () => {
-        props.setAddRecipeShow(false);
+        props.setAddRecipeShow({ state: false });
         resetForm();
     }
 
@@ -167,7 +184,7 @@ function AddRecipe(props) {
                 <Form noValidate validated={validated} onSubmit={(e) => handleSubmit(e)}>
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            {getLabel("ADD_RECIPE")}
+                            {props.recipeData ? getLabel("EDIT_RECIPE") : getLabel("ADD_RECIPE")}
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -317,7 +334,7 @@ function AddRecipe(props) {
                                 { addRecipeCall.state === LOADING.PENDING ? (
                                         <Icon size={0.8} path={mdiLoading} spin={true} />
                                     ) : (
-                                        getLabel("BUTTON_ADD")
+                                        props.recipeData ? getLabel("BUTTON_EDIT") : getLabel("BUTTON_ADD")
                                     )}
                             </Button>
                         </div>

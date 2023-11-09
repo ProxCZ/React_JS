@@ -1,17 +1,26 @@
 import Card from 'react-bootstrap/Card';
 import Icon from '@mdi/react';
-import { mdiBlur } from '@mdi/js';
+import {mdiBlur, mdiPencilOutline} from '@mdi/js';
 import './RecordCard.css';
+import {CardFooter} from "react-bootstrap";
 
 function RecordCard(props) {
     return (
-        <Card className="RecordCard col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3" style={{ width: '259.5px', height: '420px'}}>
+        <Card className="RecordCard col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3" style={{ width: '259.5px', height: '460px'}}>
             <Card.Img variant="top" width={250} src={props.record.imgUri} />
             <Card.Body>
                 <Card.Title className="RecordCard">{props.record.name}</Card.Title>
                 <Icon path={mdiBlur} size={1} />
                 <Card.Text className="RecordCard">{props.record.description}</Card.Text>
             </Card.Body>
+            <CardFooter>
+                <Icon
+                    size={0.8}
+                    path={mdiPencilOutline}
+                    style={{ color: 'brown', cursor: 'pointer' }}
+                    onClick={() => props.onClick(props.record)}
+                />
+            </CardFooter>
         </Card>
     );
 }

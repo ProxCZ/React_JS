@@ -15,10 +15,12 @@ function ListOfRecipes(props) {
 
     const [viewType, setViewType] = useState(LIST_OF_RECIPES_VIEW_TYPE.CARD);
     const [searchBy, setSearchBy] = useState("");
-    const [addRecipeShow, setAddRecipeShow] = useState(false);
+    const [addRecipeShow, setAddRecipeShow] = useState({
+        state: false
+    });
     const [recipesData, setRecipesData] = useState(props.recipesList);
 
-    const handleAddRecipeShow = () => setAddRecipeShow(true);
+    const handleAddRecipeShow = (data) => setAddRecipeShow({ state: true, data: data });
 
     const filteredRecipesList = useMemo(() => {
         if (recipesData) {
@@ -49,11 +51,11 @@ function ListOfRecipes(props) {
     function getRecords(selectedViewType) {
         switch (selectedViewType) {
             case LIST_OF_RECIPES_VIEW_TYPE.CARD:
-                return filteredRecipesList.map(record => {return (<RecordCard key={record.name} record={record}/>)});
+                return filteredRecipesList.map(record => {return (<RecordCard key={record.name} onClick={handleAddRecipeShow} record={record}/>)});
             case LIST_OF_RECIPES_VIEW_TYPE.LITTLE_CARD:
-                return filteredRecipesList.map(record => {return (<RecordLittleCard key={record.name} record={record} ingredientsList={props.ingredientsList}/>)});
+                return filteredRecipesList.map(record => {return (<RecordLittleCard key={record.name} onClick={handleAddRecipeShow} record={record} ingredientsList={props.ingredientsList}/>)});
             case LIST_OF_RECIPES_VIEW_TYPE.LIST:
-                return <RecordList records={filteredRecipesList}/>;
+                return <RecordList onClick={handleAddRecipeShow} records={filteredRecipesList}/>;
             default:
                 return (
                     <div className="error">
@@ -64,7 +66,12 @@ function ListOfRecipes(props) {
     }
 
     const handleRecipeAdded = (recipe) => {
-        setRecipesData([...recipesData, recipe]);
+        let recipesDataList = [...recipesData];
+
+        if (recipe.id) {
+            recipesDataList = recipesDataList.filter((record) => record.id !== recipe.id);
+        }
+        setRecipesData([...recipesDataList, recipe]);
     }
 
     return (
@@ -81,7 +88,7 @@ function ListOfRecipes(props) {
                             style={{ float: "right" }}
                             variant="secondary"
                             className="btn btn-success btn-sm"
-                            onClick={handleAddRecipeShow}
+                            onClick={() => handleAddRecipeShow()}
                         >
                             <Icon path={mdiPlus} size={1} />
                             {getLabel("ADD_RECIPE")}
@@ -98,7 +105,8 @@ function ListOfRecipes(props) {
             <AddRecipe
                 setAddRecipeShow={setAddRecipeShow}
                 ingredientsList={props.ingredientsList}
-                show={addRecipeShow}
+                show={addRecipeShow.state}
+                recipeData={addRecipeShow.data}
                 onComplete={(recipe) => handleRecipeAdded(recipe)}
             />
         </div>
