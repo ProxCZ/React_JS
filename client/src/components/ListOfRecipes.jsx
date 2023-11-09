@@ -95,7 +95,7 @@ function ListOfRecipes(props) {
                         </Button>
                     </div>
                     <div className={"d-flex d-sm-none"}>
-                        {filteredRecipesList !== null && filteredRecipesList.map(record => {return (<RecordCard key={record.name} record={record}/>)})}
+                        {filteredRecipesList !== null && filteredRecipesList.map(record => {return (<RecordCard onClick={handleAddRecipeShow} key={record.name} record={record}/>)})}
                     </div>
                     <div className={"d-none d-sm-flex"}>
                         {filteredRecipesList !== null && getRecords(viewType)}
