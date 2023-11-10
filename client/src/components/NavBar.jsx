@@ -29,7 +29,7 @@ function NavBar() {
                         </Offcanvas.Header>
                         <Offcanvas.Body>
                         <Nav className="justify-content-end flex-grow-1 pe-3">
-                            <Nav.Link onClick={() => navigate("/home")}>
+                            <Nav.Link onClick={() => navigate("/")}>
                                 {getLabel("TITLE_HOME")}
                             </Nav.Link>
                             <Nav.Link onClick={() => navigate("/recipes")}>
