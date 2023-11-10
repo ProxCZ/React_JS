@@ -222,7 +222,8 @@ function AddRecipe(props) {
                             <Form.Label>{getLabel("RECIPE_DESCRIPTION")}</Form.Label>
                             <Form.Control
                                 name="description"
-                                type="text"
+                                type="textarea"
+                                as="textarea" rows={6}
                                 placeholder={getLabel("PLACEHOLDER_DESCRIPTION")}
                                 value={formData.description}
                                 onChange={(e) => setField("description", e.target.value)}
