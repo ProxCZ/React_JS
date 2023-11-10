@@ -3,7 +3,12 @@
 }
 
 .RecordLittleCard .card-title {
+    font-size: 16px;
     height: 50px;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .RecordLittleCard .card-text {
