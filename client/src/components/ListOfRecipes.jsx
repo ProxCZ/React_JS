@@ -10,6 +10,7 @@ import Icon from "@mdi/react";
 import {mdiPlus} from "@mdi/js";
 import {Button} from "react-bootstrap";
 import AddRecipe from "./AddRecipe";
+import DeleteError from "./alerts/DeleteError";
 
 function ListOfRecipes(props) {
 
@@ -19,6 +20,7 @@ function ListOfRecipes(props) {
         state: false
     });
     const [recipesData, setRecipesData] = useState(props.recipesList);
+    const [deleteRecipeError, setDeleteRecipeError] = useState('');
 
     const handleAddRecipeShow = (data) => setAddRecipeShow({ state: true, data: data });
 
@@ -51,11 +53,11 @@ function ListOfRecipes(props) {
     function getRecords(selectedViewType) {
         switch (selectedViewType) {
             case LIST_OF_RECIPES_VIEW_TYPE.CARD:
-                return filteredRecipesList.map(record => {return (<RecordCard key={record.name} onClick={handleAddRecipeShow} record={record}/>)});
+                return filteredRecipesList.map(record => {return (<RecordCard key={record.name} onClick={handleAddRecipeShow} setDeleteRecipeError={setDeleteRecipeError} handleRecipeDeleted={handleRecipeDeleted} record={record}/>)});
             case LIST_OF_RECIPES_VIEW_TYPE.LITTLE_CARD:
-                return filteredRecipesList.map(record => {return (<RecordLittleCard key={record.name} onClick={handleAddRecipeShow} record={record} ingredientsList={props.ingredientsList}/>)});
+                return filteredRecipesList.map(record => {return (<RecordLittleCard key={record.name} onClick={handleAddRecipeShow} setDeleteRecipeError={setDeleteRecipeError} handleRecipeDeleted={handleRecipeDeleted} record={record} ingredientsList={props.ingredientsList}/>)});
             case LIST_OF_RECIPES_VIEW_TYPE.LIST:
-                return <RecordList onClick={handleAddRecipeShow} records={filteredRecipesList}/>;
+                return <RecordList onClick={handleAddRecipeShow} setDeleteRecipeError={setDeleteRecipeError} handleRecipeDeleted={handleRecipeDeleted} records={filteredRecipesList}/>;
             default:
                 return (
                     <div className="error">
@@ -72,6 +74,15 @@ function ListOfRecipes(props) {
             recipesDataList = recipesDataList.filter((record) => record.id !== recipe.id);
         }
         setRecipesData([...recipesDataList, recipe]);
+    }
+
+    const handleRecipeDeleted = (recipeId) => {
+        let recipesDataList = [...recipesData];
+
+        if (recipeId) {
+            recipesDataList = recipesDataList.filter((record) => record.id !== recipeId);
+        }
+        setRecipesData([...recipesDataList]);
     }
 
     return (
@@ -95,7 +106,7 @@ function ListOfRecipes(props) {
                         </Button>
                     </div>
                     <div className={"d-flex d-sm-none"}>
-                        {filteredRecipesList !== null && filteredRecipesList.map(record => {return (<RecordCard onClick={handleAddRecipeShow} key={record.name} record={record}/>)})}
+                        {filteredRecipesList !== null && filteredRecipesList.map(record => {return (<RecordCard onClick={handleAddRecipeShow} setDeleteRecipeError={setDeleteRecipeError} handleRecipeDeleted={handleRecipeDeleted} key={record.name} record={record}/>)})}
                     </div>
                     <div className={"d-none d-sm-flex"}>
                         {filteredRecipesList !== null && getRecords(viewType)}
@@ -108,6 +119,11 @@ function ListOfRecipes(props) {
                 show={addRecipeShow.state}
                 recipeData={addRecipeShow.data}
                 onComplete={(recipe) => handleRecipeAdded(recipe)}
+            />
+            <DeleteError
+                deleteRecipeError={deleteRecipeError}
+                show={!!deleteRecipeError}
+                setDeleteRecipeError={setDeleteRecipeError}
             />
         </div>
     );

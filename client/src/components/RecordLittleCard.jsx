@@ -4,6 +4,7 @@ import {mdiBlur, mdiPencilOutline} from '@mdi/js';
 import './RecordLittleCard.css';
 import React from "react";
 import {CardFooter} from "react-bootstrap";
+import DeleteRecipe from "./DeleteRecipe";
 
 function RecordLittleCard(props) {
     return (
@@ -30,6 +31,11 @@ function RecordLittleCard(props) {
                     path={mdiPencilOutline}
                     style={{ color: 'brown', cursor: 'pointer' }}
                     onClick={() => props.onClick(props.record)}
+                />
+                <DeleteRecipe
+                    recipe={props.record}
+                    onError={(error) => props.setDeleteRecipeError(error)}
+                    onDelete={(id) => props.handleRecipeDeleted(id)}
                 />
             </CardFooter>
         </Card>

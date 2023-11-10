@@ -4,6 +4,7 @@ import "./RecordList.css";
 import {mdiPencilOutline} from "@mdi/js";
 import Icon from "@mdi/react";
 import React from "react";
+import DeleteRecipe from "./DeleteRecipe";
 
 function RecordList(props) {
     return (
@@ -28,6 +29,11 @@ function RecordList(props) {
                                     path={mdiPencilOutline}
                                     style={{ color: 'brown', cursor: 'pointer' }}
                                     onClick={() => props.onClick(record)}
+                                />
+                                <DeleteRecipe
+                                    recipe={record}
+                                    onError={(error) => props.setDeleteRecipeError(error)}
+                                    onDelete={(id) => props.handleRecipeDeleted(id)}
                                 />
                             </td>
                         </tr>
