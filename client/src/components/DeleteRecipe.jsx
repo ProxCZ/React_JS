@@ -2,6 +2,7 @@ import {useState} from "react";
 import Icon from "@mdi/react";
 import {mdiTrashCanOutline} from "@mdi/js";
 import {LOADING} from "../helpers/const";
+import Confirmation from "./Confirmation";
 
 function DeleteRecipe(props) {
     const [deleteRecipeCall, setDeleteRecipeCall] = useState({
@@ -40,12 +41,20 @@ function DeleteRecipe(props) {
     }
 
     return (
-        <Icon
-            onClick={handleDelete}
-            path={mdiTrashCanOutline}
-            style={{ cursor: 'pointer', color: 'red' }}
-            size={0.8}
-        ></Icon>
+        <Confirmation
+            title="Smazat Recept"
+            message="Opravdu si přejete smazat Recept?"
+            confirmText="Smazat"
+            onConfirm={handleDelete}
+        >
+            <div>
+                <Icon
+                    path={mdiTrashCanOutline}
+                    style={{ cursor: 'pointer', color: 'red' }}
+                    size={0.8}
+                ></Icon>
+            </div>
+        </Confirmation>
     )
 }
 

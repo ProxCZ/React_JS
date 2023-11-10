@@ -14,7 +14,7 @@ function RecordCard(props) {
                 <Icon path={mdiBlur} size={1} />
                 <Card.Text className="RecordCard">{props.record.description}</Card.Text>
             </Card.Body>
-            <CardFooter>
+            <CardFooter className="EditIcons">
                 <Icon
                     size={0.8}
                     path={mdiPencilOutline}
