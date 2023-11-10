@@ -1,4 +1,4 @@
-import {Modal, Form, Button, Row, Col} from "react-bootstrap";
+import {Modal, Form, Button, Row, Col, Image} from "react-bootstrap";
 import {getLabel} from "../helpers/helper";
 import React, {useEffect, useState} from "react";
 import "./AddRecipe.css";
@@ -20,12 +20,14 @@ function AddRecipe(props) {
                 name: props.recipeData.name,
                 description: props.recipeData.description,
                 ingredients: props.recipeData.ingredients,
+                imgUri: props.recipeData.imgUri
             });
         } else {
             setFormData({
                 name: "",
                 description: "",
                 ingredients: [],
+                imgUri: ""
             });
         }
     }, [props.recipeData]);
@@ -34,6 +36,7 @@ function AddRecipe(props) {
         name: "",
         description: "",
         ingredients: [],
+        imgUri: ""
     });
 
     const isSmallScreen = useMediaQuery({ query: '(max-width: 991px)' })
@@ -43,6 +46,7 @@ function AddRecipe(props) {
             name: "",
             description: "",
             ingredients: [],
+            imgUri: ""
         });
         setValidated(false);
     }
@@ -202,6 +206,17 @@ function AddRecipe(props) {
                             <Form.Control.Feedback type="invalid">
                                 {getLabel("ERROR_REQUIRED_NAME")}
                             </Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>{getLabel("IMG_URL")}</Form.Label>
+                            <Form.Control
+                                name="img"
+                                type="text"
+                                placeholder={getLabel("PLACEHOLDER_IMG")}
+                                value={formData.imgUri}
+                                onChange={(e) => setField("imgUri", e.target.value)}
+                            />
+                            {formData.imgUri && <Image className="img-fluid rounded mx-auto d-block m-3" alt={formData.name} src={formData.imgUri}/>}
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>{getLabel("RECIPE_DESCRIPTION")}</Form.Label>
