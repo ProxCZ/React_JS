@@ -12,6 +12,7 @@
   "LOADING_ERROR": "Nepodařilo se načíst data.",
   "ADD_RECIPE": "Přidat recept",
   "EDIT_RECIPE": "Upravit recept",
+  "DELETE_RECIPE": "Smazat Recept",
   "PLACEHOLDER_NAME": "Zadej název",
   "PLACEHOLDER_DESCRIPTION": "Zadej popis",
   "PLACEHOLDER_ADD_NEXT_INGREDIENT": "Přidej ingredienci",
@@ -24,5 +25,7 @@
   "ERROR_REQUIRED_DESCRIPTION": "Zadejte popis receptu (max 4.000 znaků)",
   "ERROR_REQUIRED_UNIT": "Zadejte jednotky",
   "ERROR_REQUIRED_AMOUNT": "Zadejte množství",
-  "LABEL_ERROR": "Error: "
+  "LABEL_ERROR": "Error: ",
+  "CONFIRMATION_DELETE_RECIPE": "Opravdu si přejete smazat Recept?",
+  "DELETE": "Smazat"
 }

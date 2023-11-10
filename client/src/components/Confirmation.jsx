@@ -1,4 +1,5 @@
 import {Button, OverlayTrigger, Popover} from "react-bootstrap";
+import {getLabel} from "../helpers/helper";
 
 function Confirmation(props) {
 
@@ -27,7 +28,7 @@ function Confirmation(props) {
                         variant='light'
                         onClick={handleClose}
                     >
-                        Zrušit
+                        {getLabel("BUTTON_CLOSE")}
                     </Button>
                 </div>
             </Popover.Body>

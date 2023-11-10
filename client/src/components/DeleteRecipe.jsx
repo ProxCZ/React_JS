@@ -3,6 +3,7 @@ import Icon from "@mdi/react";
 import {mdiTrashCanOutline} from "@mdi/js";
 import {LOADING} from "../helpers/const";
 import Confirmation from "./Confirmation";
+import {getLabel} from "../helpers/helper";
 
 function DeleteRecipe(props) {
     const [deleteRecipeCall, setDeleteRecipeCall] = useState({
@@ -42,9 +43,9 @@ function DeleteRecipe(props) {
 
     return (
         <Confirmation
-            title="Smazat Recept"
-            message="Opravdu si přejete smazat Recept?"
-            confirmText="Smazat"
+            title={getLabel("DELETE_RECIPE")}
+            message={getLabel("CONFIRMATION_DELETE_RECIPE")}
+            confirmText={getLabel("DELETE")}
             onConfirm={handleDelete}
         >
             <div>
